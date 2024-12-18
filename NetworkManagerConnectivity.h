@@ -65,7 +65,7 @@ enum nsm_connectivity_httpcode {
 #define NMCONNECTIVITY_CURL_HEAD_REQUEST          true
 #define NMCONNECTIVITY_CURL_GET_REQUEST           false
 
-#define NMCONNECTIVITY_MONITOR_DEFAULT_INTERVAL   60     // sec
+#define NMCONNECTIVITY_MONITOR_DEFAULT_INTERVAL   30     // sec
 #define NMCONNECTIVITY_MONITOR_MIN_INTERVAL       5      // sec
 #define NMCONNECTIVITY_CURL_REQUEST_TIMEOUT_MS    5000   // ms
 #define NMCONNECTIVITY_NO_INTERNET_RETRY_COUNT    4      // 4 retry
@@ -96,7 +96,7 @@ namespace WPEFramework
             const TestConnectivity& operator=(const TestConnectivity&) = delete;
 
         public:
-            TestConnectivity(const std::vector<std::string>& endpoints, long timeout_ms = 2000, bool  = true, nsm_ipversion ipversion = NSM_IPRESOLVE_WHATEVER);
+            TestConnectivity(const std::vector<std::string>& endpoints, long timeout_ms = 2000, bool headReq = true, nsm_ipversion ipversion = NSM_IPRESOLVE_WHATEVER);
             ~TestConnectivity(){}
             std::string getCaptivePortal() {return captivePortalURI;}
             nsm_internetState getInternetState(){return internetSate;}

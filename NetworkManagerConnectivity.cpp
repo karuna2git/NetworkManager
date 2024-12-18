@@ -387,15 +387,12 @@ namespace WPEFramework
     {
         nsm_internetState internetState = nsm_internetState::UNKNOWN;
         // If monitor connectivity is running take the cache value
-
-        if ( doContinuousMonitor && (nsm_ipversion::NSM_IPRESOLVE_V4 == ipversion || nsm_ipversion::NSM_IPRESOLVE_WHATEVER == ipversion)
-                                           && m_Ipv4InternetState != nsm_internetState::UNKNOWN ) {
+        if ( doContinuousMonitor && (NSM_IPRESOLVE_V4 == ipversion || NSM_IPRESOLVE_WHATEVER == ipversion) && (m_Ipv4InternetState != nsm_internetState::UNKNOWN)) {
             NMLOG_WARNING("Reading Ipv4 internet state cached value %s", getInternetStateString(m_Ipv4InternetState));
             internetState = m_Ipv4InternetState;
             ipversion = NSM_IPRESOLVE_V4;
         }
-        else if ( doContinuousMonitor && (nsm_ipversion::NSM_IPRESOLVE_V6 == ipversion || nsm_ipversion::NSM_IPRESOLVE_WHATEVER == ipversion)
-                                           && m_Ipv6InternetState != nsm_internetState::UNKNOWN ) {
+        else if ( doContinuousMonitor && (NSM_IPRESOLVE_V6 == ipversion || NSM_IPRESOLVE_WHATEVER == ipversion) && (m_Ipv6InternetState != nsm_internetState::UNKNOWN)) {
             NMLOG_WARNING("Reading Ipv6 internet state cached value %s", getInternetStateString(m_Ipv6InternetState));
             internetState = m_Ipv6InternetState;
             ipversion = NSM_IPRESOLVE_V6;
@@ -405,7 +402,8 @@ namespace WPEFramework
             TestConnectivity testInternet(getConnectivityMonitorEndpoints(), NMCONNECTIVITY_CURL_REQUEST_TIMEOUT_MS, NMCONNECTIVITY_CURL_GET_REQUEST, ipversion);
             internetState = testInternet.getInternetState();
             // TODO : Lets not hard code here.
-            ipversion = NSM_IPRESOLVE_V4;
+            if (NSM_IPRESOLVE_WHATEVER == ipversion)
+                ipversion = NSM_IPRESOLVE_V4;
         }
         return internetState;
     }
@@ -426,6 +424,7 @@ namespace WPEFramework
     {
         if(_instance != nullptr )
             NMLOG_INFO("interface status eth - %s wlan - %s ", _instance->m_ethConnected? "up":"down", _instance->m_wlanConnected? "up":"down");
+
         continuousMonitorTimeout.store(timeoutInSeconds >= NMCONNECTIVITY_MONITOR_MIN_INTERVAL ? timeoutInSeconds : NMCONNECTIVITY_MONITOR_DEFAULT_INTERVAL);
         if (doContinuousMonitor)
         {
