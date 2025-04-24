@@ -28,6 +28,11 @@ find_package(${NAMESPACE}Core REQUIRED)
 find_package(${NAMESPACE}Plugins REQUIRED)
 find_package(CURL)
 find_package(PkgConfig REQUIRED)
+
+find_package(WPEFramework REQUIRED)
+find_package(WPEFrameworkCore REQUIRED)
+find_package(WPEFrameworkWebSocket REQUIRED)
+
 #pkg_check_modules(GLIB REQUIRED glib-2.0)
 #pkg_check_modules(GIO REQUIRED gio-2.0)
 #pkg_check_modules(LIBNM REQUIRED libnm)
@@ -81,6 +86,8 @@ add_executable(${NM_ROUTER_DISCOVERY_UT}
     ${CMAKE_SOURCE_DIR}/tools/upnp/UpnpDiscoveryManager.cpp
 )
 
+add_executable(TestBinary TestBinary.cpp)
+
 set_target_properties(${NM_CLASS_UT} PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
@@ -104,6 +111,10 @@ set_target_properties(${NM_ROUTER_DISCOVERY_UT} PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
 )
+
+set_target_properties(TestBinary PROPERTIES
+                                   CXX_STANDARD 11
+                                   CXX_STANDARD_REQUIRED YES)
 
 target_compile_options(${NM_CLASS_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
 target_compile_options(${NM_RDKPROXY_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
@@ -193,8 +204,14 @@ target_link_libraries(${NM_ROUTER_DISCOVERY_UT} PRIVATE
       ${GSSDP_LIBRARIES}
 )
 
+target_link_libraries(TestBinary PRIVATE
+                                   ${NAMESPACE}Core::${NAMESPACE}Core
+                                   ${NAMESPACE}WebSocket::${NAMESPACE}WebSocket)
+
+
 install(TARGETS ${NM_CLASS_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_RDKPROXY_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_LEGACY_WIFI_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_LEGACY_NETWORK_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_ROUTER_DISCOVERY_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(TARGETS TestBinary DESTINATION bin)
