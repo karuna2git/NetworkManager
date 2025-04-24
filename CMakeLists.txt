@@ -40,7 +40,8 @@ get_directory_property(SEVICES_DEFINES COMPILE_DEFINITIONS)
 option(ENABLE_LEGACY_PLUGINS "Enable Legacy Plugins" ON)
 option(USE_RDK_LOGGER "Enable RDK Logger for logging" OFF )
 option(ENABLE_UNIT_TESTING "Enable unit tests" OFF)
-
+option(ENABLE_CODE_COVERAGE "Enable code coverage" ON)
+ 
 
 add_subdirectory(interface)
 add_subdirectory(definition)
@@ -52,7 +53,15 @@ endif (ENABLE_LEGACY_PLUGINS)
 
 add_subdirectory(tools)
 
+if(ENABLE_CODE_COVERAGE)
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+endif(ENABLE_CODE_COVERAGE)
+
 if(ENABLE_UNIT_TESTING)
     add_subdirectory(tests/unittest)
 endif(ENABLE_UNIT_TESTING)
+
+
+
+
 
