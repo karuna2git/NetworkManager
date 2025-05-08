@@ -101,6 +101,9 @@ jobs:
           echo "Running Thunder WPEFramework..."
           WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json &
           
+      - name: Wait for Thunder to run
+        run: sleep 30
+          
       - name: Run unit tests for plugin
         run: >
           PATH=${{github.workspace}}/install/usr/bin:${PATH}
