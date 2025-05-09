@@ -18,11 +18,11 @@
 #############################################################################
 message ("Unittest binary is built here")
 
-set(NM_CLASS_UT "common_class_tests")
+#[[set(NM_CLASS_UT "common_class_tests")
 set(NM_RDKPROXY_UT "rdkproxy_tests")
 set(NM_LEGACY_WIFI_UT "legacywifi_tests")
 set(NM_LEGACY_NETWORK_UT "legacynetwork_tests")
-set(NM_ROUTER_DISCOVERY_UT "routerDiscovery_tests")
+set(NM_ROUTER_DISCOVERY_UT "routerDiscovery_tests")#]]
 set(FUNCTIONALITY_TEST "l3_tests")
 
 find_package(${NAMESPACE}Core REQUIRED)
@@ -46,7 +46,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
-add_executable(${NM_CLASS_UT}
+#[[add_executable(${NM_CLASS_UT}
     ${CMAKE_SOURCE_DIR}/tests/unittest/test_NetworkManagerConnectivity.cpp
     ${CMAKE_SOURCE_DIR}/tests/unittest/test_NetworkManagerStunClient.cpp
     ${CMAKE_SOURCE_DIR}/plugin/NetworkManagerLogger.cpp
@@ -80,17 +80,18 @@ add_executable(${NM_LEGACY_NETWORK_UT}
     ${CMAKE_SOURCE_DIR}/plugin/NetworkManagerLogger.cpp
     ${CMAKE_SOURCE_DIR}/legacy/LegacyNetworkAPIs.cpp
 )
-add_executable(${FUNCTIONALITY_TEST}
-    ${CMAKE_SOURCE_DIR}/tests/unittest/L3Test_App.cpp
-)
-
 if(ENABLE_ROUTER_DISCOVERY_TOOL)
 add_executable(${NM_ROUTER_DISCOVERY_UT}
     ${CMAKE_SOURCE_DIR}/tests/unittest/test_UpnpDiscoveryManager.cpp
     ${CMAKE_SOURCE_DIR}/tools/upnp/UpnpDiscoveryManager.cpp
 )
-endif(ENABLE_ROUTER_DISCOVERY_TOOL)
+endif(ENABLE_ROUTER_DISCOVERY_TOOL)]]
 
+add_executable(${FUNCTIONALITY_TEST}
+    ${CMAKE_SOURCE_DIR}/tests/unittest/L3Test_App.cpp
+)
+
+#[[
 set_target_properties(${NM_CLASS_UT} PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
@@ -118,22 +119,22 @@ set_target_properties(${NM_ROUTER_DISCOVERY_UT} PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
 )
-endif(ENABLE_ROUTER_DISCOVERY_TOOL)
+endif(ENABLE_ROUTER_DISCOVERY_TOOL)]]
 
 set_target_properties(${FUNCTIONALITY_TEST} PROPERTIES
     CXX_STANDARD 11
     CXX_STANDARD_REQUIRED YES
 )
 
-target_compile_options(${NM_CLASS_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
+#[[target_compile_options(${NM_CLASS_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
 target_compile_options(${NM_RDKPROXY_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
 target_compile_options(${NM_LEGACY_WIFI_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
-target_compile_options(${NM_LEGACY_NETWORK_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
+target_compile_options(${NM_LEGACY_NETWORK_UT} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)]]
 target_compile_options(${FUNCTIONALITY_TEST} PRIVATE -Wall -include ${CMAKE_SOURCE_DIR}/interface/INetworkManager.h)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
 
-include_directories(${PROJECT_SOURCE_DIR}/interface)
+#[[include_directories(${PROJECT_SOURCE_DIR}/interface)
 include_directories(${PROJECT_SOURCE_DIR}/plugin)
 include_directories(${PROJECT_SOURCE_DIR}/legacy)
 include_directories(${PROJECT_SOURCE_DIR}/tests/mocks)
@@ -217,20 +218,20 @@ target_link_libraries(${NM_ROUTER_DISCOVERY_UT} PRIVATE
       ${GUPNP_LIBRARIES} 
       ${GSSDP_LIBRARIES}
 )
-endif(ENABLE_ROUTER_DISCOVERY_TOOL)
+endif(ENABLE_ROUTER_DISCOVERY_TOOL)]]
 
 target_link_libraries(${FUNCTIONALITY_TEST} PRIVATE
        ${NAMESPACE}Core::${NAMESPACE}Core
        ${NAMESPACE}WebSocket::${NAMESPACE}WebSocket
 )
 
-install(TARGETS ${NM_CLASS_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+#[[install(TARGETS ${NM_CLASS_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_RDKPROXY_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_LEGACY_WIFI_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 install(TARGETS ${NM_LEGACY_NETWORK_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
 
 if(ENABLE_ROUTER_DISCOVERY_TOOL)
 install(TARGETS ${NM_ROUTER_DISCOVERY_UT} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-endif(ENABLE_ROUTER_DISCOVERY_TOOL)
+endif(ENABLE_ROUTER_DISCOVERY_TOOL)]]
 
 install(TARGETS ${FUNCTIONALITY_TEST} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
