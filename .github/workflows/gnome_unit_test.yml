@@ -99,7 +99,29 @@ jobs:
           export LD_LIBRARY_PATH=${PWD}/install/usr/lib:${LD_LIBRARY_PATH}
           export PATH=${PWD}/install/usr/bin:${PATH}
           echo "Running Thunder WPEFramework..."
-          WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json 
+          WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json &
+          sleep 2
+          WPE_PID=$(pgrep -f "WPEFramework -f")
+    
+          if [ -z "$WPE_PID" ]; then
+          echo "ERROR: Could not find WPEFramework PID!"
+          exit 1
+          fi
+    
+          echo "WPEFramework is starting with PID: $WPE_PID"
+    
+          # Wait for WPEFramework to fully initialize and stabilize
+	  echo "Waiting for WPEFramework to initialize and stabilize..."
+	  sleep 60  # Wait time based on log patterns
+	    
+	  # Verify process is still running before proceeding
+	  if ! ps -p $WPE_PID > /dev/null; then
+          echo "ERROR: WPEFramework process died during initialization!"
+          exit 1
+	  fi
+	    
+	  echo "WPEFramework is up and running with PID: $WPE_PID"
+
          
       - name: Run unit tests for plugin
         run: >
