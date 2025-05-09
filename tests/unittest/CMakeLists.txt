@@ -134,9 +134,9 @@ target_compile_options(${FUNCTIONALITY_TEST} PRIVATE -Wall -include ${CMAKE_SOUR
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
 
-#[[include_directories(${PROJECT_SOURCE_DIR}/interface)
+include_directories(${PROJECT_SOURCE_DIR}/interface)
 include_directories(${PROJECT_SOURCE_DIR}/plugin)
-include_directories(${PROJECT_SOURCE_DIR}/legacy)
+#[[include_directories(${PROJECT_SOURCE_DIR}/legacy)
 include_directories(${PROJECT_SOURCE_DIR}/tests/mocks)
 include_directories(${PROJECT_SOURCE_DIR}/tests/mocks/thunder)
 
