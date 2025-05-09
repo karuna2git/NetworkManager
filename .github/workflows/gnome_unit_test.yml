@@ -99,11 +99,8 @@ jobs:
           export LD_LIBRARY_PATH=${PWD}/install/usr/lib:${LD_LIBRARY_PATH}
           export PATH=${PWD}/install/usr/bin:${PATH}
           echo "Running Thunder WPEFramework..."
-          WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json &
-          
-      - name: Wait for Thunder to run
-        run: sleep 30
-          
+          WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json 
+         
       - name: Run unit tests for plugin
         run: >
           PATH=${{github.workspace}}/install/usr/bin:${PATH}
