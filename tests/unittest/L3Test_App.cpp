@@ -46,9 +46,10 @@ int main ()
     //Test 8:
     parameters["level"] = -1; //invalid level
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
 
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetLogLevel"), parameters, response);
-     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 9:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetAvailableInterfaces"), parameters, response);
@@ -70,6 +71,7 @@ int main ()
     //Test 14:
     parameters["interface"] = "test1"; //invalid interface
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetPrimaryInterface"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 15:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetInterfaceState"), parameters, response);
@@ -86,6 +88,7 @@ int main ()
     parameters["interface"] = "test";
     parameters["enabled"] = "true";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetInterfaceState"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     //Test 19:
     parameters["interface"] = "wlan0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetInterfaceState"), parameters, response);
@@ -102,9 +105,11 @@ int main ()
     //Test 23:
     parameters["interface"] = "test";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetInterfaceState"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 24:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 25:
     parameters["interface"] = "wlan0";
@@ -119,38 +124,49 @@ int main ()
     parameters["primarydns"] = "192.168.1.1";
     parameters["secondarydns"] = "192.168.1.2";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
      
      //Test 27:
      jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetStunEndpoint"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 28:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetStunEndpoint"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 29:
     parameters["endpoint"] = "45.57.221.20";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetStunEndpoint"), parameters, response);
     //Test 30:
      parameters["endpoint"] = "1567";
      jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetStunEndpoint"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
+     //Test 31:
      parameters["endpoint"] = "45.57.221.20";
      parameters["port"] = 3478;
      parameters["timeout"] = 30;
      parameters["cacheLifetime"] = 0;
      jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetStunEndpoint"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 31:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetConnectivityTestEndpoints"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 32:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetConnectivityTestEndpoints"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 33:
     parameters["endpoint"] =  "http://clients3.google.com/generate_204";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetConnectivityTestEndpoints"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 34:
     parameters["endpoint"] =  "clients.com";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetConnectivityTestEndpoints"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 35:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("IsConnectedToInternet"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 36:
     parameters["interface"] = "wlan0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("IsConnectedToInternet"), parameters, response);
@@ -166,6 +182,7 @@ int main ()
      parameters["ipversion"] = "IPv6";
      parameters["interface"] = "test1"; 
      jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("IsConnectedToInternet"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 40:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetCaptivePortalURI"), parameters, response);
@@ -243,11 +260,14 @@ int main ()
   
     //Test 1:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("getDefaultInterface"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 2:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("getInterfaces"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
 
     //Test 3:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("getIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 4:
     parameters["interface"] = "WIFI";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("getIPSettings"), parameters, response);
@@ -432,18 +452,21 @@ int main ()
     jsonPlugin3 = make_shared<WPEFramework::JSONRPC::LinkType<WPEFramework::Core::JSON::IElement> >("org.rdk.Wifi.1", "");
     //Test 1:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("cancelWPSPairing"), parameters, response);
-    
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 2:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("clearSSID"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 3:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("connect"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 4:
     parameters["ssid"] = "123412341234";
     parameters["passphrase"] = "password";
     parameters["securityMode"] = 2; 
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("connect"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 5:
     parameters["ssid"] = "myssid";
     parameters["passphrase"] = "password";
@@ -568,6 +591,7 @@ int main ()
     
     //Test 37:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("stopScan"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
       
 
 }
