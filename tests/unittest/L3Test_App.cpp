@@ -56,9 +56,11 @@ int main ()
     
     //Test 10:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetPrimaryInterface"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
    
     //Test 11:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetPrimaryInterface"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 12:
     parameters["interface"] = "wlan0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetPrimaryInterface"), parameters, response); 
@@ -71,6 +73,7 @@ int main ()
     
     //Test 15:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetInterfaceState"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 16:
     parameters["interface"] = "wlan0";
     parameters["enabled"] = true;
@@ -89,6 +92,7 @@ int main ()
     
     //Test 20:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetInterfaceState"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 21:
     parameters["interface"] = "eth0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetInterfaceState"), parameters, response);

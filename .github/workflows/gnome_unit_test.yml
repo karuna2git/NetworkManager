@@ -116,9 +116,12 @@ jobs:
       - name: Generate coverage
         run: |
             lcov -c -o coverage.info -d build/GnomeLibnmNetworkmanager 
-            lcov -r coverage.info '/usr/include/*' '*/build/GnomeLibnmNetworkmanager /*' \
-                                  '*/install/usr/include/*' 'googlemock/*' 'googletest/*' \
-                                  -o filtered_coverage.info
+            lcov -r coverage.info '/usr/include/*' \
+                     '*/build/GnomeLibnmNetworkmanager/*' \
+                     '*/install/usr/include/*' \
+                     'googlemock/*' \
+                     'googletest/*' \
+                     -o filtered_coverage.info
       - name: Generate the html report
         run: |
             genhtml filtered_coverage.info --output-directory /tmp/coverage_report
