@@ -48,9 +48,11 @@ int main ()
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
 
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetLogLevel"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     
     //Test 9:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetAvailableInterfaces"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_UNAVAILABLE, 2)" << std::endl;
     
     //Test 10:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetPrimaryInterface"), parameters, response);
