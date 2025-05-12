@@ -56,7 +56,7 @@ int main ()
     
     //Test 10:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetPrimaryInterface"), parameters, response);
-    EXPECT_EQ(Core::ERROR_UNAVAILABLE); 
+   
     //Test 11:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetPrimaryInterface"), parameters, response);
     //Test 12:
