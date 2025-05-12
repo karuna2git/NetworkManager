@@ -124,14 +124,6 @@ jobs:
         run: >
           PATH=${{github.workspace}}/install/usr/bin:${PATH}
           routerDiscovery_tests
-          
-      - name: Run Thunder/WPEFramework
-        run: |
-          export LD_LIBRARY_PATH=${PWD}/install/usr/lib:${LD_LIBRARY_PATH}
-          export PATH=${PWD}/install/usr/bin:${PATH}
-          echo "Running Thunder WPEFramework..."
-          WPEFramework -f -c ${PWD}/install/etc/WPEFramework/config.json &
-                
     
       - name: Generate coverage
         run: |

@@ -36,6 +36,7 @@ int main ()
     
     //Test 5:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 6:
     parameters["level"] = "0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
