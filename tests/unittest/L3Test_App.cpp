@@ -23,16 +23,19 @@ int main ()
    
     //Test 1:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetIPSettings"), parameters, response);
-	printf("testing");
+     std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     //Test 2:
     parameters["interface"] = "test";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_GENERAL, 1)" << std::endl;
     //Test 3:
     parameters["interface"] = "eth0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endk;
     //Test 4:
     parameters["interface"] = "wlan0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("GetIPSettings"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::endl;
     
     //Test 5:
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
@@ -40,6 +43,7 @@ int main ()
     //Test 6:
     parameters["level"] = "0";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);
+    std::cout << "Operation Result: ERROR_CODE(ERROR_NONE, 0)" << std::
     //Test 7:
     parameters["level"] = "7";
     jsonPlugin->Invoke<JsonObject, JsonObject>(5000, _T("SetLogLevel"), parameters, response);

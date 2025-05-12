@@ -86,7 +86,7 @@ jobs:
           -DCMAKE_TOOLCHAIN_FILE="${{ env.TOOLCHAIN_FILE }}"
           -DCMAKE_INSTALL_PREFIX="${{github.workspace}}/install/usr"
           -DCMAKE_MODULE_PATH="${{github.workspace}}/install/tools/cmake"
-          -DCMAKE_CXX_FLAGS=" -fprofile-arcs -ftest-coverage 
+          -DCMAKE_CXX_FLAGS="
           -I ${{github.workspace}}/networkmanager/tests/headers
           -I ${{github.workspace}}/networkmanager/tests/headers/rdk/iarmbus
           --include ${{github.workspace}}/networkmanager/tests/mocks/Iarm.h
